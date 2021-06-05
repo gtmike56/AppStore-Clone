@@ -8,13 +8,45 @@
 import UIKit
 
 class SearchResultCell: UICollectionViewCell {
+        
+    var appResult: Result! {
+        didSet {
+            appNameLabel.text = appResult.trackName
+            appCategoryLabel.text = appResult.primaryGenreName
+            if let appRating = appResult.averageUserRating {
+                appRatingLabel.text = "Rating: \(String(format: "%.2f", appRating))"
+            } else {
+                appRatingLabel.text = "No rating yet"
+            }
+            
+            ImageCacheService.shared.loadAppImage(imageURL: appResult.artworkUrl100) { appIcon in
+                self.appImageView.image = appIcon
+                
+            }
+            ImageCacheService.shared.loadAppImage(imageURL: appResult.screenshotUrls[0]) { appIcon in
+                self.screenshotImage1.image = appIcon
+                
+            }
+            if appResult.screenshotUrls.count > 1 {
+                ImageCacheService.shared.loadAppImage(imageURL: appResult.screenshotUrls[1]) { appIcon in
+                    self.screenshotImage2.image = appIcon
+                }
+            }
+            if appResult.screenshotUrls.count > 2 {
+                ImageCacheService.shared.loadAppImage(imageURL: appResult.screenshotUrls[2]) { appIcon in
+                    self.screenshotImage3.image = appIcon
+                    
+                }
+            }
+        }
+    }
     
     let appImageView: UIImageView = {
         let iv = UIImageView()
-        iv.backgroundColor = .red
-        iv.widthAnchor.constraint(equalToConstant: 64).isActive = true
-        iv.heightAnchor.constraint(equalToConstant: 64).isActive = true
-        iv.layer.cornerRadius = 10
+        iv.widthAnchor.constraint(equalToConstant: 66).isActive = true
+        iv.heightAnchor.constraint(equalToConstant: 66).isActive = true
+        iv.layer.cornerRadius = 15
+        iv.clipsToBounds = true
         return iv
     }()
     
@@ -24,7 +56,7 @@ class SearchResultCell: UICollectionViewCell {
         return label
     }()
     
-    let appSecondNameLabel: UILabel = {
+    let appCategoryLabel: UILabel = {
         let label = UILabel()
         label.text = "Second title"
         label.textColor = .darkGray
@@ -56,14 +88,18 @@ class SearchResultCell: UICollectionViewCell {
     
     fileprivate func createScreenShotsImageView() -> UIImageView {
         let iv = UIImageView()
-        iv.backgroundColor = .blue
+        iv.layer.cornerRadius = 10
+        iv.clipsToBounds = true
+        iv.layer.borderWidth = 0.25
+        iv.layer.borderColor = UIColor(white: 0.5, alpha: 0.5).cgColor
+        iv.contentMode = .scaleAspectFill
         return iv
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        let labelsStackView = UIStackView(arrangedSubviews: [appNameLabel, appSecondNameLabel, appRatingLabel])
+        let labelsStackView = UIStackView(arrangedSubviews: [appNameLabel, appCategoryLabel, appRatingLabel])
         labelsStackView.axis = .vertical
         labelsStackView.spacing = 2.5
         
@@ -85,7 +121,7 @@ class SearchResultCell: UICollectionViewCell {
         mainStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15).isActive = true
         mainStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15).isActive = true
         mainStackView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-
+        
     }
     
     required init?(coder: NSCoder) {

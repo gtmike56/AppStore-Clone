@@ -9,50 +9,26 @@ import UIKit
 
 class SearchViewController: UICollectionViewController {
     
-    let cellID = "searchCell"
+    fileprivate let cellID = "searchCell"
     
+    fileprivate let searchController = UISearchController(searchResultsController: nil)
+    
+    fileprivate var appResults = [Result]()
+    
+    var timer: Timer?
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         
         title = "Search"
-
+        
         collectionView.backgroundColor = .white
         collectionView.register(SearchResultCell.self, forCellWithReuseIdentifier: cellID)
         
-        fetchApps()
+        setupSearchBar()
+        
     }
     
-    fileprivate func fetchApps(){
-        let urlString = "https://itunes.apple.com/search?term=instagram&entity=software"
-        
-        guard let url = URL(string: urlString) else {
-            print("URL is not correct (fetchApps) ")
-            return
-        }
-        
-        let task = URLSession.shared.dataTask(with: URLRequest(url: url)) { data, _, error in
-            if let err = error {
-                print("Error fetching the apps: ", err)
-                return
-            }
-            
-            guard let data = data else {
-                print("There is no data (fetchApps) ")
-                return
-            }
-            
-            do {
-                let result = try JSONDecoder().decode(SearchResult.self, from: data)
-                
-            } catch {
-                print("There is an error decoding JSON (fetchApps) ", error)
-            }
-            
-            
-        }
-        
-        task.resume()
-    }
     
     init(){
         super.init(collectionViewLayout: UICollectionViewFlowLayout())
@@ -62,21 +38,57 @@ class SearchViewController: UICollectionViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    fileprivate func setupSearchBar() {
+        definesPresentationContext = true
+        navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = false
+        searchController.searchBar.delegate = self
+        searchController.searchBar.placeholder = "Games, Apps, Stories, and More"
+    }
+
+    fileprivate func fetchApps(searchText: String){
+        APIService.shared.fetchApps(searchText: searchText) { results, err  in
+            
+            if let error = err {
+                print("Failed to fetch the apps" ,error)
+                return
+            }
+            
+            self.appResults = results
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
+        }
+    }
+
 }
 
 extension SearchViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return .init(width: view.frame.width, height: 350)
+        return .init(width: view.frame.width, height: 355)
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return appResults.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! SearchResultCell
-        cell.appNameLabel.text = "App Name"
+        cell.appResult = appResults[indexPath.item]
         return cell
+    }
+    
+}
+
+
+extension SearchViewController: UISearchBarDelegate {
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        
+        timer?.invalidate()
+        timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { _ in
+            self.fetchApps(searchText: searchText)
+        })
     }
 }

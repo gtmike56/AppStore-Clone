@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		74060F86266BBE9B005553DE /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74060F85266BBE9B005553DE /* APIService.swift */; };
+		74060F88266BC529005553DE /* ImageCacheService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74060F87266BC529005553DE /* ImageCacheService.swift */; };
 		7412DB9F266A659C005F426E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7412DB9E266A659C005F426E /* AppDelegate.swift */; };
 		7412DBA1266A659C005F426E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7412DBA0266A659C005F426E /* SceneDelegate.swift */; };
 		7412DBA3266A659C005F426E /* BaseTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7412DBA2266A659C005F426E /* BaseTabBarController.swift */; };
@@ -22,6 +24,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		74060F85266BBE9B005553DE /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
+		74060F87266BC529005553DE /* ImageCacheService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheService.swift; sourceTree = "<group>"; };
 		7412DB9B266A659C005F426E /* AppStore-Clone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AppStore-Clone.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7412DB9E266A659C005F426E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7412DBA0266A659C005F426E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -49,6 +53,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		74060F84266BBE8B005553DE /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				74060F85266BBE9B005553DE /* APIService.swift */,
+				74060F87266BC529005553DE /* ImageCacheService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
 		7412DB92266A659C005F426E = {
 			isa = PBXGroup;
 			children = (
@@ -68,6 +81,7 @@
 		7412DB9D266A659C005F426E /* AppStore-Clone */ = {
 			isa = PBXGroup;
 			children = (
+				74060F84266BBE8B005553DE /* Service */,
 				7412DBBC266A8679005F426E /* Helpers */,
 				7412DBB9266A7ED1005F426E /* Cells */,
 				7412DBBF266A9856005F426E /* Models */,
@@ -193,9 +207,11 @@
 				7412DBB3266A73FA005F426E /* TodayViewController.swift in Sources */,
 				7412DBB7266A7411005F426E /* AppsViewController.swift in Sources */,
 				7412DBA3266A659C005F426E /* BaseTabBarController.swift in Sources */,
+				74060F86266BBE9B005553DE /* APIService.swift in Sources */,
 				7412DBBE266A86C3005F426E /* UIView+Layout.swift in Sources */,
 				7412DB9F266A659C005F426E /* AppDelegate.swift in Sources */,
 				7412DBA1266A659C005F426E /* SceneDelegate.swift in Sources */,
+				74060F88266BC529005553DE /* ImageCacheService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
