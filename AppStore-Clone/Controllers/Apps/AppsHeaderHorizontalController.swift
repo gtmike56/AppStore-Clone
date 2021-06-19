@@ -7,14 +7,16 @@
 
 import UIKit
 
-private let reuseIdentifier = "appsHeaderCellID"
+fileprivate let reuseIdentifier = "appsHeaderCellID"
 
-class HeaderHorizontalController: BaseCollectionViewController {
+class AppsHeaderHorizontalController: BaseCollectionViewController {
+    
+    var appsHeader = [AppsHeader]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.backgroundColor = .white
-        self.collectionView!.register(AppHeaderCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        collectionView.register(AppHeaderCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         if let layout = collectionViewLayout as? UICollectionViewFlowLayout {
             layout.scrollDirection = .horizontal
         }
@@ -22,14 +24,20 @@ class HeaderHorizontalController: BaseCollectionViewController {
 
 }
 
-extension HeaderHorizontalController: UICollectionViewDelegateFlowLayout {
+extension AppsHeaderHorizontalController: UICollectionViewDelegateFlowLayout {
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
+        return appsHeader.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? AppHeaderCell else { return UICollectionViewCell() }
+        let app = appsHeader[indexPath.item]
+        cell.companyLabel.text = app.name
+        cell.textLabel.text = app.tagline
+        ImageCacheService.shared.loadAppImage(imageURL: app.imageUrl) { appIcon in
+            cell.imageView.image = appIcon
+        }
         return cell
     }
     

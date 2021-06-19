@@ -9,7 +9,7 @@ import UIKit
 
 class AppsPageHeader: UICollectionReusableView {
     
-    let headerHorizontalController = HeaderHorizontalController()
+    let headerHorizontalController = AppsHeaderHorizontalController()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -19,7 +19,7 @@ class AppsPageHeader: UICollectionReusableView {
         headerHorizontalController.view.topAnchor.constraint(equalTo: topAnchor, constant: 0).isActive = true
         headerHorizontalController.view.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0).isActive = true
         headerHorizontalController.view.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0).isActive = true
-        headerHorizontalController.view.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0).isActive = true
+        headerHorizontalController.view.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10).isActive = true
         
     }
     

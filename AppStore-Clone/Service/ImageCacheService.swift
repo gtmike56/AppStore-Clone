@@ -7,11 +7,13 @@
 
 import UIKit
 
+typealias urlString = NSString
+
 class ImageCacheService {
     
     static var shared = ImageCacheService()
     
-    let cache = NSCache<NSString, UIImage>()
+    let cache = NSCache<urlString, UIImage>()
         
     func loadAppImage(imageURL: String, completion: @escaping (UIImage?) -> ()) {
 
@@ -21,8 +23,8 @@ class ImageCacheService {
             
         }
         
-        if cache.object(forKey: imageURL as NSString) != nil {
-            completion(cache.object(forKey: imageURL as NSString))
+        if let cachedImage = cache.object(forKey: imageURL as urlString) {
+            completion(cachedImage)
             return
         }
         
@@ -35,7 +37,7 @@ class ImageCacheService {
             DispatchQueue.main.async { [self] in
                 if let data = data {
                     if let downloadedImage = UIImage(data: data) {
-                        cache.setObject(downloadedImage, forKey: imageURL as NSString)
+                        cache.setObject(downloadedImage, forKey: imageURL as urlString)
                         completion(downloadedImage)
                     }
                 } else {

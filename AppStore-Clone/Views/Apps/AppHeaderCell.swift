@@ -27,8 +27,8 @@ class AppHeaderCell: UICollectionViewCell {
     
     let imageView: UIImageView = {
         let iv = UIImageView()
-        iv.layer.cornerRadius = 5
-        iv.backgroundColor = .red
+        iv.clipsToBounds = true
+        iv.layer.cornerRadius = 7
         return iv
     }()
     
@@ -43,8 +43,8 @@ class AppHeaderCell: UICollectionViewCell {
         mainStackView.translatesAutoresizingMaskIntoConstraints = false
         mainStackView.topAnchor.constraint(equalTo: topAnchor, constant: 10).isActive = true
         mainStackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10).isActive = true
-        mainStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0).isActive = true
-        mainStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10).isActive = true
+        mainStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10).isActive = true
+        mainStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0).isActive = true
     }
     
     required init?(coder: NSCoder) {

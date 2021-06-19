@@ -11,12 +11,11 @@ class AppRowCell: UICollectionViewCell {
     
     let appImageView: UIImageView = {
         let iv = UIImageView()
-        iv.widthAnchor.constraint(equalToConstant: 64).isActive = true
-        iv.heightAnchor.constraint(equalToConstant: 64).isActive = true
+        iv.widthAnchor.constraint(equalToConstant: 62).isActive = true
+        iv.heightAnchor.constraint(equalToConstant: 62).isActive = true
         iv.layer.cornerRadius = 15
         iv.clipsToBounds = true
         iv.contentMode = .scaleAspectFill
-        iv.backgroundColor = .red
         return iv
     }()
     
@@ -62,7 +61,7 @@ class AppRowCell: UICollectionViewCell {
         mainStackView.translatesAutoresizingMaskIntoConstraints = false
         mainStackView.topAnchor.constraint(equalTo: topAnchor, constant: 0).isActive = true
         mainStackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0).isActive = true
-        mainStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0).isActive = true
+        mainStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15).isActive = true
         mainStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0).isActive = true
     }
     
@@ -71,3 +70,4 @@ class AppRowCell: UICollectionViewCell {
     }
     
 }
+    

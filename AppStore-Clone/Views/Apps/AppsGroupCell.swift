@@ -18,6 +18,8 @@ class AppsGroupCell: UICollectionViewCell {
     
     let horizontalController = AppsHorizontalController()
     
+    
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(titleLabel)
@@ -30,9 +32,9 @@ class AppsGroupCell: UICollectionViewCell {
         addSubview(horizontalController.view)
         horizontalController.view.translatesAutoresizingMaskIntoConstraints = false
         horizontalController.view.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 5).isActive = true
-        horizontalController.view.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15).isActive = true
-        horizontalController.view.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15).isActive = true
-        horizontalController.view .bottomAnchor.constraint(equalTo: bottomAnchor, constant: 15).isActive = true
+        horizontalController.view.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0).isActive = true
+        horizontalController.view.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10).isActive = true
+        horizontalController.view .bottomAnchor.constraint(equalTo: bottomAnchor, constant: 5).isActive = true
     }
     
     required init?(coder: NSCoder) {

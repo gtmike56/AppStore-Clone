@@ -16,7 +16,7 @@ class SearchViewController: BaseCollectionViewController {
     fileprivate var appResults = [Result]()
     
     var timer: Timer?
-        
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -36,22 +36,23 @@ class SearchViewController: BaseCollectionViewController {
         searchController.searchBar.delegate = self
         searchController.searchBar.placeholder = "Games, Apps, Stories, and More"
     }
-
+    
     fileprivate func fetchApps(searchText: String){
-        APIService.shared.fetchApps(searchText: searchText) { results, err  in
+        APIService.shared.fetchSearchedApps(searchText: searchText) { [self] (searchResult, err)  in
             
             if let error = err {
                 print("Failed to fetch the apps" ,error)
                 return
             }
-            
-            self.appResults = results
+            if let searchResult = searchResult {
+                appResults = searchResult.results
+            }
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
             }
         }
     }
-
+    
 }
 
 extension SearchViewController: UICollectionViewDelegateFlowLayout {
@@ -65,7 +66,8 @@ extension SearchViewController: UICollectionViewDelegateFlowLayout {
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! SearchResultCell
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as? SearchResultCell
+        else { return UICollectionViewCell() }
         cell.appResult = appResults[indexPath.item]
         return cell
     }
