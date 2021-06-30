@@ -12,7 +12,7 @@ class APIService {
     
     func fetchJsonData<T: Decodable>(urlString: String, completion: @escaping (T?, Error?) -> Void){
         guard let url = URL(string: urlString) else {
-            print("URL is not correct (fetchSection) ")
+            print("URL is not correct")
             return
         }
         
@@ -23,7 +23,7 @@ class APIService {
             }
             
             guard let data = data else {
-                print("There is no data (fetchApps) ")
+                print("There is no data")
                 return
             }
             
@@ -61,6 +61,11 @@ class APIService {
         
     func fetchAppsHeader(completion: @escaping ([AppsHeader]? , Error?) -> ()){
         let urlString = "https://gtmike56.github.io/Helpers/AppStore-Clone/appsPageHeaderAPI.json"
+        fetchJsonData(urlString: urlString, completion: completion)
+    }
+    
+    func fetchAppDetails(appId: String, completion: @escaping (SearchResult? , Error?) -> ()){
+        let urlString = "https://itunes.apple.com/lookup?id=\(appId)"
         fetchJsonData(urlString: urlString, completion: completion)
     }
     

@@ -9,7 +9,7 @@ import UIKit
 
 fileprivate let reuseIdentifier = "appsHeaderCellID"
 
-class AppsHeaderHorizontalController: BaseCollectionViewController {
+class AppsHeaderHorizontalController: HorizontalSnappingController {
     
     var appsHeader = [AppsHeader]()
 
@@ -42,7 +42,7 @@ extension AppsHeaderHorizontalController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return .init(width: view.frame.width-40, height: view.frame.height)
+        return .init(width: view.frame.width-30, height: view.frame.height)
     }
 
 }

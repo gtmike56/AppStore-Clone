@@ -68,7 +68,35 @@ extension SearchViewController: UICollectionViewDelegateFlowLayout {
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as? SearchResultCell
         else { return UICollectionViewCell() }
-        cell.appResult = appResults[indexPath.item]
+        let app = appResults[indexPath.item]
+        cell.appNameLabel.text = app.trackName
+        cell.appCategoryLabel.text = app.primaryGenreName
+        
+        if let appRating = app.averageUserRating {
+            cell.appRatingLabel.text = "Rating: \(String(format: "%.2f", appRating))"
+        } else {
+            cell.appRatingLabel.text = "No rating yet"
+        }
+        
+        ImageCacheService.shared.loadAppImage(imageURL: app.artworkUrl512) { appIcon in
+            cell.appImageView.image = appIcon
+            
+        }
+        ImageCacheService.shared.loadAppImage(imageURL: app.screenshotUrls[0]) { appIcon in
+            cell.screenshotImage1.image = appIcon
+            
+        }
+        if app.screenshotUrls.count > 1 {
+            ImageCacheService.shared.loadAppImage(imageURL: app.screenshotUrls[1]) { appIcon in
+                cell.screenshotImage2.image = appIcon
+            }
+        }
+        if app.screenshotUrls.count > 2 {
+            ImageCacheService.shared.loadAppImage(imageURL: app.screenshotUrls[2]) { appIcon in
+                cell.screenshotImage3.image = appIcon
+                
+            }
+        }
         return cell
     }
     

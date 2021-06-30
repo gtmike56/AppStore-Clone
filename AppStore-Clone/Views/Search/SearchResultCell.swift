@@ -8,38 +8,6 @@
 import UIKit
 
 class SearchResultCell: UICollectionViewCell {
-        
-    var appResult: Result! {
-        didSet {
-            appNameLabel.text = appResult.trackName
-            appCategoryLabel.text = appResult.primaryGenreName
-            if let appRating = appResult.averageUserRating {
-                appRatingLabel.text = "Rating: \(String(format: "%.2f", appRating))"
-            } else {
-                appRatingLabel.text = "No rating yet"
-            }
-            
-            ImageCacheService.shared.loadAppImage(imageURL: appResult.artworkUrl100) { appIcon in
-                self.appImageView.image = appIcon
-                
-            }
-            ImageCacheService.shared.loadAppImage(imageURL: appResult.screenshotUrls[0]) { appIcon in
-                self.screenshotImage1.image = appIcon
-                
-            }
-            if appResult.screenshotUrls.count > 1 {
-                ImageCacheService.shared.loadAppImage(imageURL: appResult.screenshotUrls[1]) { appIcon in
-                    self.screenshotImage2.image = appIcon
-                }
-            }
-            if appResult.screenshotUrls.count > 2 {
-                ImageCacheService.shared.loadAppImage(imageURL: appResult.screenshotUrls[2]) { appIcon in
-                    self.screenshotImage3.image = appIcon
-                    
-                }
-            }
-        }
-    }
     
     let appImageView: UIImageView = {
         let iv = UIImageView()

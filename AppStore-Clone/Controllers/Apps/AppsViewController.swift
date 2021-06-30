@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AppsPageViewController: BaseCollectionViewController {
+class AppsViewController: BaseCollectionViewController {
     
     let cellID = "appsCell"
     let headerID = "appsHeader"
@@ -102,13 +102,13 @@ class AppsPageViewController: BaseCollectionViewController {
             activityIndicatorView.stopAnimating()
             collectionView.reloadData()
         }
-        
-        
     }
+    
+    
     
 }
 
-extension AppsPageViewController: UICollectionViewDelegateFlowLayout {
+extension AppsViewController: UICollectionViewDelegateFlowLayout {
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return appGroups.count
@@ -122,6 +122,11 @@ extension AppsPageViewController: UICollectionViewDelegateFlowLayout {
         cell.titleLabel.text = appSection.title
         cell.horizontalController.appSectionFeed = appSection
         cell.horizontalController.collectionView.reloadData()
+        cell.horizontalController.didSelectHeader = { selectedApp in
+            let detailsVC = AppDetailsViewController()
+            detailsVC.appID = selectedApp.id
+            self.navigationController?.pushViewController(detailsVC, animated: true)
+        }
         return cell
     }
     
@@ -133,6 +138,7 @@ extension AppsPageViewController: UICollectionViewDelegateFlowLayout {
         guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerID, for: indexPath) as? AppsPageHeader else { return UICollectionReusableView() }
         header.headerHorizontalController.appsHeader = appsHeader
         header.headerHorizontalController.collectionView.reloadData()
+
         return header
     }
     
