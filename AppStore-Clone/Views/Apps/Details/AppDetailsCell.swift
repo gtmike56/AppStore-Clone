@@ -11,12 +11,11 @@ class AppDetailsCell: UICollectionViewCell {
     
     let appIconImageView: UIImageView = {
         let iv = UIImageView()
-        iv.widthAnchor.constraint(equalToConstant: 140).isActive = true
-        iv.heightAnchor.constraint(equalToConstant: 140).isActive = true
+        iv.widthAnchor.constraint(equalToConstant: 120).isActive = true
+        iv.heightAnchor.constraint(equalToConstant: 120).isActive = true
         iv.layer.cornerRadius = 15
         iv.clipsToBounds = true
         iv.contentMode = .scaleAspectFill
-        iv.backgroundColor = .red
         return iv
     }()
     
@@ -65,7 +64,7 @@ class AppDetailsCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        let headerVerticalStackView = UIStackView(arrangedSubviews: [nameLabel, appCompanyLabel, UIStackView(arrangedSubviews: [priceButton, UIView()])])
+        let headerVerticalStackView = UIStackView(arrangedSubviews: [nameLabel, appCompanyLabel, UIView(), UIStackView(arrangedSubviews: [priceButton, UIView()])])
         headerVerticalStackView.axis = .vertical
         headerVerticalStackView.distribution = .equalCentering
 

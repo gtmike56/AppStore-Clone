@@ -17,6 +17,7 @@ class AppScreenshotsController: HorizontalSnappingController {
         super.viewDidLoad()
         
         collectionView.register(ScreenshotCell.self, forCellWithReuseIdentifier: screenshotCellId)
+        collectionView.contentInset = .init(top: 0, left: 15, bottom: 15, right: 15)
     }
 }
 

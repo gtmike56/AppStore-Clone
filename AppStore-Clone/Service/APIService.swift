@@ -69,4 +69,9 @@ class APIService {
         fetchJsonData(urlString: urlString, completion: completion)
     }
     
+    func fetchAppReviews(appId: String, completion: @escaping (AppReviews? , Error?) -> ()){
+        let urlString = "https://itunes.apple.com/rss/customerreviews/page=1/id=\(appId)/sortby=mostrecent/json?l=en&cc=ca"
+        fetchJsonData(urlString: urlString, completion: completion)
+    }
+    
 }

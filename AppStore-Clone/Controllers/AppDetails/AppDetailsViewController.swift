@@ -9,13 +9,23 @@ import UIKit
 
 class AppDetailsViewController: BaseCollectionViewController {
     
-    var appID: String?
+    fileprivate var appID: String?
+    
+    init(appId: String){
+        appID = appId
+        super.init()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     let cellDetailsID = "appDetailsCell"
     let screenshotsCellId = "appScreenshotsCell"
     let reviewsCellId = "appReviresCell"
     
     var app: Result?
+    var appReviews: AppReviews?
     
     override func viewDidLoad() {
         
@@ -25,16 +35,31 @@ class AppDetailsViewController: BaseCollectionViewController {
         collectionView.register(AppReviewsCell.self, forCellWithReuseIdentifier: reviewsCellId)
         
         fetchAppDetails()
+        fetchReviews()
     }
     
     func fetchAppDetails() {
         guard let appID = appID else { return }
-        APIService.shared.fetchAppDetails(appId: appID) { [ self] searchResult, error in
+        APIService.shared.fetchAppDetails(appId: appID) { [self] searchResult, error in
             if let error = error {
                 print(error)
                 return
             }
             app = searchResult?.results.first
+            DispatchQueue.main.async {
+                collectionView.reloadData()
+            }
+        }
+    }
+    
+    func fetchReviews(){
+        guard let appID = appID else { return }
+        APIService.shared.fetchAppReviews(appId: appID) { [self] reviews, error in
+            if let error = error {
+                print(error)
+                return
+            }
+            appReviews = reviews
             DispatchQueue.main.async {
                 collectionView.reloadData()
             }
@@ -70,6 +95,10 @@ extension AppDetailsViewController: UICollectionViewDelegateFlowLayout {
             return cell
         } else {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reviewsCellId, for: indexPath) as? AppReviewsCell else { return UICollectionViewCell() }
+            if let appReviews = appReviews {
+                cell.horizontalController.appReviews = appReviews
+                cell.horizontalController.collectionView.reloadData()
+            }
             return cell
         }
 
@@ -85,7 +114,7 @@ extension AppDetailsViewController: UICollectionViewDelegateFlowLayout {
         } else if indexPath.item == 1 {
             return .init(width: view.frame.width, height: 500)
         } else {
-            return .init(width: view.frame.width, height: 300)
+            return .init(width: view.frame.width, height: 250)
         }
     }
     

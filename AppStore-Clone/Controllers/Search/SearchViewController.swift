@@ -100,6 +100,12 @@ extension SearchViewController: UICollectionViewDelegateFlowLayout {
         return cell
     }
     
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let app = appResults[indexPath.item]
+        let appDetailsController = AppDetailsViewController(appId: String(app.trackId))
+        navigationController?.pushViewController(appDetailsController, animated: true)
+    }
+    
 }
 
 

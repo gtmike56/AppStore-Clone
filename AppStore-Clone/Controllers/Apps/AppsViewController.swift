@@ -123,8 +123,7 @@ extension AppsViewController: UICollectionViewDelegateFlowLayout {
         cell.horizontalController.appSectionFeed = appSection
         cell.horizontalController.collectionView.reloadData()
         cell.horizontalController.didSelectHeader = { selectedApp in
-            let detailsVC = AppDetailsViewController()
-            detailsVC.appID = selectedApp.id
+            let detailsVC = AppDetailsViewController(appId: selectedApp.id)
             self.navigationController?.pushViewController(detailsVC, animated: true)
         }
         return cell

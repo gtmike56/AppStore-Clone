@@ -28,10 +28,10 @@ class AppScreenshotsCell: UICollectionViewCell {
         
         addSubview(horizontalController.view)
         horizontalController.view.translatesAutoresizingMaskIntoConstraints = false
-        horizontalController.view.topAnchor.constraint(equalTo: previewLabel.topAnchor, constant: 40).isActive = true
+        horizontalController.view.topAnchor.constraint(equalTo: previewLabel.topAnchor, constant: 50).isActive = true
         horizontalController.view.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0).isActive = true
         horizontalController.view.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0).isActive = true
-        horizontalController.view.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10).isActive = true
+        horizontalController.view.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0).isActive = true
     }
     
     required init?(coder: NSCoder) {

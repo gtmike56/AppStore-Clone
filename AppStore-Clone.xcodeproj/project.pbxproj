@@ -36,6 +36,7 @@
 		7446BCA0266D68AC0026CFAF /* AppsGroupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7446BC9F266D68AC0026CFAF /* AppsGroupCell.swift */; };
 		7446BCA2266D6E580026CFAF /* AppsHorizontalController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7446BCA1266D6E580026CFAF /* AppsHorizontalController.swift */; };
 		7462D4B6267E50AA007A009F /* AppsHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7462D4B5267E50AA007A009F /* AppsHeader.swift */; };
+		749F11F4268D16D7003603E4 /* AppReviewsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 749F11F3268D16D7003603E4 /* AppReviewsModel.swift */; };
 		74C0643F267311FB00FA99D2 /* AppSectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C0643E267311FB00FA99D2 /* AppSectionModel.swift */; };
 		74C9A822267E7DEA00DD0D3E /* HorizontalSnappingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C9A821267E7DEA00DD0D3E /* HorizontalSnappingController.swift */; };
 /* End PBXBuildFile section */
@@ -72,6 +73,7 @@
 		7446BC9F266D68AC0026CFAF /* AppsGroupCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppsGroupCell.swift; sourceTree = "<group>"; };
 		7446BCA1266D6E580026CFAF /* AppsHorizontalController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppsHorizontalController.swift; sourceTree = "<group>"; };
 		7462D4B5267E50AA007A009F /* AppsHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppsHeader.swift; sourceTree = "<group>"; };
+		749F11F3268D16D7003603E4 /* AppReviewsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppReviewsModel.swift; sourceTree = "<group>"; };
 		74C0643E267311FB00FA99D2 /* AppSectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSectionModel.swift; sourceTree = "<group>"; };
 		74C9A821267E7DEA00DD0D3E /* HorizontalSnappingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalSnappingController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -132,6 +134,7 @@
 		7412DBB8266A75B8005F426E /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				7441CEE5268AA0A600A3619E /* AppDetails */,
 				7446BC99266D663B0026CFAF /* Today */,
 				7446BC98266D66360026CFAF /* Search */,
 				7446BC97266D662D0026CFAF /* Apps */,
@@ -158,6 +161,7 @@
 				7412DBC0266A9869005F426E /* AppSearchModel.swift */,
 				74C0643E267311FB00FA99D2 /* AppSectionModel.swift */,
 				7462D4B5267E50AA007A009F /* AppsHeader.swift */,
+				749F11F3268D16D7003603E4 /* AppReviewsModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -174,20 +178,19 @@
 			path = Details;
 			sourceTree = "<group>";
 		};
-		7441CEE5268AA0A600A3619E /* Details */ = {
+		7441CEE5268AA0A600A3619E /* AppDetails */ = {
 			isa = PBXGroup;
 			children = (
 				7441CEDE2687717300A3619E /* AppDetailsViewController.swift */,
 				7441CEE6268AA0C900A3619E /* AppScreenshotsController.swift */,
 				7441CEEC268AAB5600A3619E /* AppReviewsController.swift */,
 			);
-			path = Details;
+			path = AppDetails;
 			sourceTree = "<group>";
 		};
 		7446BC97266D662D0026CFAF /* Apps */ = {
 			isa = PBXGroup;
 			children = (
-				7441CEE5268AA0A600A3619E /* Details */,
 				7412DBB6266A7411005F426E /* AppsViewController.swift */,
 				7446BCA1266D6E580026CFAF /* AppsHorizontalController.swift */,
 				743771882670FE980064F26A /* AppsHeaderHorizontalController.swift */,
@@ -329,6 +332,7 @@
 				7441CEE7268AA0C900A3619E /* AppScreenshotsController.swift in Sources */,
 				7412DB9F266A659C005F426E /* AppDelegate.swift in Sources */,
 				7412DBA1266A659C005F426E /* SceneDelegate.swift in Sources */,
+				749F11F4268D16D7003603E4 /* AppReviewsModel.swift in Sources */,
 				7446BC9B266D66FE0026CFAF /* BaseCollectionViewController.swift in Sources */,
 				74060F88266BC529005553DE /* ImageCacheService.swift in Sources */,
 				7446BCA2266D6E580026CFAF /* AppsHorizontalController.swift in Sources */,

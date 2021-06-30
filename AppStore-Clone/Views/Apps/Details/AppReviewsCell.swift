@@ -17,7 +17,7 @@ class AppReviewsCell: UICollectionViewCell {
     }()
     
     let horizontalController = AppReviewsController()
-    
+        
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -31,7 +31,7 @@ class AppReviewsCell: UICollectionViewCell {
         horizontalController.view.topAnchor.constraint(equalTo: reviewsLabel.topAnchor, constant: 40).isActive = true
         horizontalController.view.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0).isActive = true
         horizontalController.view.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0).isActive = true
-        horizontalController.view.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10).isActive = true
+        horizontalController.view.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0).isActive = true
     }
     
     required init?(coder: NSCoder) {
