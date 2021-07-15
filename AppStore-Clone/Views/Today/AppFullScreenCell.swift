@@ -12,17 +12,13 @@ class AppFullScreenCell: UITableViewCell {
     let descriptionLabel: UILabel = {
         let label = UILabel()
         
-        let attributedText = NSMutableAttributedString(string: "Great games", attributes: [.foregroundColor: UIColor.black])
+        let attributedText = NSMutableAttributedString(string: "Introducing the", attributes: [.foregroundColor: UIColor.black])
         
-        attributedText.append(NSAttributedString(string: " are all about the details, from subtle visual effects to imaginative art styles. In these titles, you're sure to find something to marvel at, whether you're into fantasy worlds or neon-soaked dartboards.", attributes: [.foregroundColor: UIColor.gray]))
-        
-        attributedText.append(NSAttributedString(string: "\n\n\nHeroic adventure", attributes: [.foregroundColor: UIColor.black]))
-        
-        attributedText.append(NSAttributedString(string: "\nBattle in dungeons. Collect treasure. Solve puzzles. Sail to new lands. Oceanhorn lets you do it all in a beautifully detailed world.", attributes: [.foregroundColor: UIColor.gray]))
-        
-        attributedText.append(NSAttributedString(string: "\n\n\nHeroic adventure", attributes: [.foregroundColor: UIColor.black]))
-        
-        attributedText.append(NSAttributedString(string: "\nBattle in dungeons. Collect treasure. Solve puzzles. Sail to new lands. Oceanhorn lets you do it all in a beautifully detailed world.", attributes: [.foregroundColor: UIColor.gray]))
+        attributedText.append(NSAttributedString(string: " all-new Apple Gift Card.", attributes: [.foregroundColor: UIColor.gray]))
+                
+        attributedText.append(NSAttributedString(string: "\n\nWith the Apple Gift Card, customers can purchase Apple products and acccessories, apps, games, musics, movies, TV shows, subscribtions, iCloud storage, and more.", attributes: [.foregroundColor: UIColor.gray]))
+                
+        attributedText.append(NSAttributedString(string: "\n\nSoon you can purchase the Apple Gift Card in the Apple Store app, on apple.com, and at Apple retail locations and top retailers including Shoppers Drug Mart, Loblaws, Walmart, Sobeys, Circle K.", attributes: [.foregroundColor: UIColor.gray]))
         
         label.font = UIFont.systemFont(ofSize: 20, weight: .regular)
         label.attributedText = attributedText

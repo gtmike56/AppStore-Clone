@@ -9,26 +9,76 @@ import UIKit
 
 class TodayViewController: BaseCollectionViewController {
     
-    fileprivate var cellId = "todayCell"
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         navigationController?.setNavigationBarHidden(true, animated: true)
-                
+        
+        view.addSubview(activityIndicator)
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        
+        fetchApps()
+        
         collectionView.backgroundColor = UIColor(white: 0.95, alpha: 1)
         
-        collectionView.register(TodayViewCell.self, forCellWithReuseIdentifier: cellId)
+        collectionView.register(TodayViewCell.self, forCellWithReuseIdentifier: TodayCellModel.CellType.single.rawValue)
+        collectionView.register(TodayMultipleAppsCell.self, forCellWithReuseIdentifier: TodayCellModel.CellType.multiple.rawValue)
         
         collectionView.contentInset = .init(top: 30, left: 0, bottom: 30, right: 0)
         
         self.lastTabBarFrame = self.tabBarController?.tabBar.frame
     }
     
-    let todayItems = [
-        TodayCellModel.init(categoty: "Test Category 1", title: "Test Title 1", image: UIImage(named: "garden")!, description: "Test Description 1", backgroundColor: .white),
-        TodayCellModel.init(categoty: "Test Category 2", title: "Test Title 2", image: UIImage(named: "garden")!, description: "Test Description 2", backgroundColor: .white)
-    ]
+    var todayItems = [TodayCellModel]()
+    
+    fileprivate func fetchApps() {
+        let dispatchGroup = DispatchGroup()
+        
+        var topFreeAppsGroup: AppSection?
+        var newAppsGroup: AppSection?
+        
+        dispatchGroup.enter()
+        APIService.shared.fetchTopFreeApps { appSection, error in
+            if let error = error {
+                print(error)
+                return
+            }
+            topFreeAppsGroup = appSection
+            dispatchGroup.leave()
+        }
+        
+        dispatchGroup.enter()
+        APIService.shared.fetchNewApps { appSection, error in
+            if let error = error {
+                print(error)
+                return
+            }
+            newAppsGroup = appSection
+            dispatchGroup.leave()
+        }
+        
+        dispatchGroup.notify(queue: .main) {
+            
+            self.todayItems = [
+                TodayCellModel.init(categoty: "OUR FAVOURITES", title: topFreeAppsGroup?.feed.title ?? "Apps We Like", image: UIImage(named: "garden")!, description: "Test Description 1", apps: topFreeAppsGroup, cellType: .multiple),
+                TodayCellModel.init(categoty: "THE BASICS", title: "The Gift Card for Everything Apple", image: UIImage(named: "appleGiftCard")!, description: "", apps: nil, cellType: .single),
+                TodayCellModel.init(categoty: "OUR FAVOURITES", title: newAppsGroup?.feed.title ?? "Apps We Like", image: UIImage(named: "garden")!, description: "", apps: newAppsGroup, cellType: .multiple),
+            ]
+            
+            self.collectionView.reloadData()
+            self.activityIndicator.stopAnimating()
+        }
+    }
+    
+    var activityIndicator: UIActivityIndicatorView = {
+        let activity = UIActivityIndicatorView(style: .large)
+        activity.color = .darkGray
+        activity.startAnimating()
+        activity.hidesWhenStopped = true
+        return activity
+    }()
     
     var appFullScreenController: AppFullScreenController?
     
@@ -50,13 +100,23 @@ extension TodayViewController: UICollectionViewDelegateFlowLayout {
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! TodayViewCell
-        cell.todayItem = todayItems[indexPath.item]
+        
+        let cellType = todayItems[indexPath.item].cellType.rawValue
+        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellType, for: indexPath)
+        
+        if let cell = cell as? TodayViewCell {
+            cell.todayItem = todayItems[indexPath.item]
+        } else if let cell = cell as? TodayMultipleAppsCell {
+            cell.todayItem = todayItems[indexPath.item]
+        }
         return cell
     }
     
+    static let cellSize: CGFloat = 450
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return .init(width: view.frame.width - 65, height: 450)
+        return .init(width: view.frame.width - 65, height: TodayViewController.cellSize)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {

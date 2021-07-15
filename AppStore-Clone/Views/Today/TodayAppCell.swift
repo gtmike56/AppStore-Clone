@@ -1,13 +1,13 @@
 //
-//  AppRowCell.swift
+//  TodayAppCell.swift
 //  AppStore-Clone
 //
-//  Created by Mikhail Udotov on 2021-06-08.
+//  Created by Mikhail Udotov on 2021-07-14.
 //
 
 import UIKit
 
-class AppRowCell: UICollectionViewCell {
+class TodayAppCell: UICollectionViewCell {
     
     let appImageView: UIImageView = {
         let iv = UIImageView()
@@ -67,7 +67,7 @@ class AppRowCell: UICollectionViewCell {
         mainStackView.translatesAutoresizingMaskIntoConstraints = false
         mainStackView.topAnchor.constraint(equalTo: topAnchor, constant: 0).isActive = true
         mainStackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0).isActive = true
-        mainStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15).isActive = true
+        mainStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0).isActive = true
         mainStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0).isActive = true
         
         addSubview(separatorView)
@@ -79,8 +79,6 @@ class AppRowCell: UICollectionViewCell {
     }
     
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        fatalError()
     }
-    
 }
-    

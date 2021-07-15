@@ -27,6 +27,7 @@ class TodayViewCell: UICollectionViewCell {
         let label = UILabel()
         label.text = "Card Title"
         label.font = .boldSystemFont(ofSize: 28)
+        label.numberOfLines = 2
         return label
     }()
     
@@ -44,7 +45,6 @@ class TodayViewCell: UICollectionViewCell {
             titleLabel.text = todayItem?.title
             categotyLabel.text = todayItem?.categoty
             descriptionLabel.text = todayItem?.description
-            backgroundColor = todayItem?.backgroundColor
         }
     }
     
@@ -57,6 +57,7 @@ class TodayViewCell: UICollectionViewCell {
         clipsToBounds = true
         
         addSubview(mainImageView)
+        backgroundColor = .white
         
         let imageContainerView = UIView()
         imageContainerView.addSubview(mainImageView)

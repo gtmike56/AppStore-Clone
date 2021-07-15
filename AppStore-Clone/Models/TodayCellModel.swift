@@ -12,5 +12,12 @@ struct TodayCellModel {
     let title: String
     let image: UIImage
     let description: String
-    let backgroundColor: UIColor
+    
+    let apps: AppSection?
+    
+    let cellType: CellType
+    
+    enum CellType: String {
+        case single, multiple
+    }
 }
