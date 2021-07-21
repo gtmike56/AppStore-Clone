@@ -109,8 +109,32 @@ extension TodayViewController: UICollectionViewDelegateFlowLayout {
             cell.todayItem = todayItems[indexPath.item]
         } else if let cell = cell as? TodayMultipleAppsCell {
             cell.todayItem = todayItems[indexPath.item]
+            cell.todayAppsVC.collectionView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleMultipleAppsTap)))
         }
         return cell
+    }
+    
+    @objc fileprivate func handleMultipleAppsTap(gesture: UITapGestureRecognizer) {
+        let collectionView = gesture.view
+
+        var superView = collectionView?.superview
+         
+        while superView != nil {
+            if let cell = superView as? TodayMultipleAppsCell {
+                guard let indexPath = self.collectionView.indexPath(for: cell) else {return}
+                openMultipleAppsController(indexPath: indexPath)
+                return
+            }
+            superView = superView?.superview
+        }
+    }
+    
+    fileprivate func openMultipleAppsController(indexPath: IndexPath){
+        let fullTodayAppsController = TodayMultipleAppsController(mode: .fullscreen)
+        fullTodayAppsController.apps = todayItems[indexPath.item].apps?.feed.results
+        let navController = BackEnabledNavController(rootViewController: fullTodayAppsController)
+        navController.modalPresentationStyle = .fullScreen
+        present(navController, animated: true)
     }
     
     static let cellSize: CGFloat = 450
@@ -125,6 +149,13 @@ extension TodayViewController: UICollectionViewDelegateFlowLayout {
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
+        //cell with apps
+        if todayItems[indexPath.item].cellType == .multiple {
+            openMultipleAppsController(indexPath: indexPath)
+            return
+        }
+        
+        //cell-card
         guard let cell = collectionView.cellForItem(at: indexPath) else {return}
         //get cell coordinates
         guard let startFrame = cell.superview?.convert(cell.frame, to: nil) else {return}
@@ -163,6 +194,7 @@ extension TodayViewController: UICollectionViewDelegateFlowLayout {
             guard let cell = self.appFullScreenController?.tableView.cellForRow(at: [0,0]) as? AppFullScreenHeaderCell else {return}
             cell.todayCell.stackViewTopConstraint?.constant = 50
             cell.layoutIfNeeded()
+            
             
             self.hideTabbar(self.tabBarController, self.lastTabBarFrame, self.view)
             

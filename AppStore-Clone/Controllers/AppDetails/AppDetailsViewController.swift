@@ -27,6 +27,16 @@ class AppDetailsViewController: BaseCollectionViewController {
     var app: Result?
     var appReviews: AppReviews?
     
+    var activityIndicator: UIActivityIndicatorView = {
+        let activity = UIActivityIndicatorView(style: .large)
+        activity.color = .darkGray
+        activity.startAnimating()
+        activity.hidesWhenStopped = true
+        return activity
+    }()
+    
+    let activityView = UIView()
+    
     override func viewDidLoad() {
         
         navigationItem.largeTitleDisplayMode = .never
@@ -34,36 +44,55 @@ class AppDetailsViewController: BaseCollectionViewController {
         collectionView.register(AppScreenshotsCell.self, forCellWithReuseIdentifier: screenshotsCellId)
         collectionView.register(AppReviewsCell.self, forCellWithReuseIdentifier: reviewsCellId)
         
-        fetchAppDetails()
-        fetchReviews()
+        setUpActivityIndicator()
+        
+        fetchAppData()
     }
     
-    func fetchAppDetails() {
+    func setUpActivityIndicator(){
+        
+        activityView.backgroundColor = .white
+        activityView.frame = view.frame
+        view.addSubview(activityView)
+        
+        activityView.addSubview(activityIndicator)
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        activityIndicator.centerXAnchor.constraint(equalTo: activityView.centerXAnchor).isActive = true
+        activityIndicator.centerYAnchor.constraint(equalTo: activityView.centerYAnchor).isActive = true
+    }
+    
+    
+    func fetchAppData() {
+        let dispatchGroup = DispatchGroup()
+        
         guard let appID = appID else { return }
+        
+        dispatchGroup.enter()
         APIService.shared.fetchAppDetails(appId: appID) { [self] searchResult, error in
             if let error = error {
                 print(error)
                 return
             }
             app = searchResult?.results.first
-            DispatchQueue.main.async {
-                collectionView.reloadData()
-            }
+            dispatchGroup.leave()
         }
-    }
-    
-    func fetchReviews(){
-        guard let appID = appID else { return }
+        
+        dispatchGroup.enter()
         APIService.shared.fetchAppReviews(appId: appID) { [self] reviews, error in
             if let error = error {
                 print(error)
                 return
             }
             appReviews = reviews
-            DispatchQueue.main.async {
-                collectionView.reloadData()
-            }
+            dispatchGroup.leave()
         }
+        
+        dispatchGroup.notify(queue: .main) {
+            self.activityIndicator.stopAnimating()
+            self.collectionView.reloadData()
+            self.activityView.removeFromSuperview()
+        }
+        
     }
 }
 
@@ -79,6 +108,7 @@ extension AppDetailsViewController: UICollectionViewDelegateFlowLayout {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellDetailsID, for: indexPath) as? AppDetailsCell else { return UICollectionViewCell() }
             if let app = app {
                 cell.nameLabel.text = app.trackName
+                cell.appCompanyLabel.text = app.artistName
                 ImageCacheService.shared.loadAppImage(imageURL: app.artworkUrl512) { appIcon in
                     cell.appIconImageView.image = appIcon
                 }

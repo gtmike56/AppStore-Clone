@@ -54,7 +54,10 @@ class TodayViewCell: UICollectionViewCell {
         super.init(frame: frame)
         
         layer.cornerRadius = 15
-        clipsToBounds = true
+        
+        layer.shadowOpacity = 0.1
+        layer.shadowRadius = 10
+        layer.shadowOffset = .init(width: 0, height: 15)
         
         addSubview(mainImageView)
         backgroundColor = .white

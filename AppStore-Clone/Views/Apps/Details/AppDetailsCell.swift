@@ -21,7 +21,7 @@ class AppDetailsCell: UICollectionViewCell {
     
     let nameLabel: UILabel = {
         let label = UILabel()
-        label.text = "App Name"
+        label.text = ""
         label.numberOfLines = 2
         label.font = .boldSystemFont(ofSize: 26)
         return label
@@ -29,14 +29,14 @@ class AppDetailsCell: UICollectionViewCell {
     
     let whatsNewLabel: UILabel = {
         let label = UILabel()
-        label.text = "What's New"
+        label.text = ""
         label.font = .boldSystemFont(ofSize: 20)
         return label
     }()
     
     let releaseNotesLabel: UILabel = {
         let label = UILabel()
-        label.text = "Release Notes"
+        label.text = ""
         label.numberOfLines = 0
         label.font = .systemFont(ofSize: 16)
         return label
@@ -44,7 +44,7 @@ class AppDetailsCell: UICollectionViewCell {
     
     let appCompanyLabel: UILabel = {
         let label = UILabel()
-        label.text = "Company"
+        label.text = ""
         label.textColor = .darkGray
         label.font = .systemFont(ofSize: 13)
         return label
@@ -52,7 +52,7 @@ class AppDetailsCell: UICollectionViewCell {
     
     let priceButton: UIButton = {
         let button = UIButton()
-        button.setTitle("$3.99", for: .normal)
+        button.setTitle("", for: .normal)
         button.backgroundColor = .systemBlue
         button.titleLabel?.font = .boldSystemFont(ofSize: 14)
         button.widthAnchor.constraint(equalToConstant: 80).isActive = true

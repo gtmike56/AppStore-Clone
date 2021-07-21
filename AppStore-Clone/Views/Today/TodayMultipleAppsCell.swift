@@ -21,7 +21,8 @@ class TodayMultipleAppsCell: UICollectionViewCell {
     var categotyLabel: UILabel = {
         let label = UILabel()
         label.text = "Card Caregory"
-        label.font = .boldSystemFont(ofSize: 20)
+        label.font = .boldSystemFont(ofSize: 16)
+        label.textColor = .darkGray
         return label
     }()
     
@@ -33,13 +34,17 @@ class TodayMultipleAppsCell: UICollectionViewCell {
         return label
     }()
     
-    let todayAppsVC = TodayMultipleAppsController()
+    let todayAppsVC = TodayMultipleAppsController(mode: .small)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         backgroundColor = .white
-        layer.cornerRadius = 16
+        
+        layer.cornerRadius = 15
+        layer.shadowOpacity = 0.1
+        layer.shadowRadius = 10
+        layer.shadowOffset = .init(width: 0, height: 15)
         
         let stackView = UIStackView(arrangedSubviews: [categotyLabel, titleLabel, todayAppsVC.view])
         stackView.axis = .vertical
