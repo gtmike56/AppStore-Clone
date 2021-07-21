@@ -5,9 +5,7 @@ Tried to create similar to App Store application using APIs coming directly from
 ## Screenshots 
 
 ### Today Page
-<img src="Screenshots/TodayPage.png" width="310" height="672">
-
-<img src="Screenshots/CardDetail.png" width="310" height="672">
+<img src="Screenshots/TodayPage.png" width="310" height="672"><img src="Screenshots/CardDetail.png" width="310" height="672">
 
 ### Apps Page
 <img src="Screenshots/AppsPage.png" width="310" height="672">
